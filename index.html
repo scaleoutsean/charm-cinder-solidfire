@@ -1,0 +1,63 @@
+<h2 id="solidfire-storage-backend-for-cinder">SolidFire storage backend
+for Cinder</h2>
+<p><strong>NOTE:</strong> this is a fork from
+https://github.com/solidfire/charm-cinder-solidfire which NetApp no
+longer maintains (and/or supports). It’s meant to serve as an
+ecouragement for users interested in using SolidFire with newer VMware
+alternatives.</p>
+<h1 id="overview">Overview</h1>
+<p>This charm configures Cinder to use SolidFire as a backend. This
+charm works with multiple backends from other vendors in the same
+environment.</p>
+<p>To use:</p>
+<pre><code>juju deploy cinder
+juju deploy cinder-solidfire_amd64.charm
+juju config cinder-solidfire san_ip=192.168.1.34 san_login=admin san_password=b____n
+juju add-relation cinder-solidfire:storage-backend cinder:storage-backend</code></pre>
+<p>This will setup a configuration file with the stanza named for the
+unit (ex: cinder-solidfire-1) and the volume_backend_name set to
+‘cinder-solidfire’. The charm does NOT setup the volume-types for
+Cinder. You will need to do that once the Stack is up. See the Cinder
+configuration guide for details.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>Everything assumes you have the SolidFire cluster up and running
+already and that your controller nodes (containers) can reach the
+SolidFire MVIP and SVIP as needed.</p>
+<p><strong>Important:</strong> The SolidFire API uses HTTPS (port 443 by
+default). Ensure a valid TLS certificate is deployed on the SolidFire
+cluster, as Cinder requires secure communication and will reject invalid
+certificates.</p>
+<h1 id="configuration">Configuration</h1>
+<p>The configuration options for this charm are shown below (by the
+charm store). The required configuration minimum options are san_ip,
+san_login, san_password, all others are optional.</p>
+<p>As an option to the above command (in overview) to set the variables,
+you can also pass a file into the deploy command with the configuration
+like this:</p>
+<pre><code>juju deploy  /home/$(whoami)/charms/noble/cinder-solidfire_amd64.charm --config=SF-Config.yaml</code></pre>
+<h1 id="development">Development</h1>
+<p>Environment used to build the bundle for AMD64 systems contained in
+the root of this repository:</p>
+<ul>
+<li>LXD 5.21.4</li>
+<li>Charm Tools 3.5.3</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install charm-tools  <span class="co"># or sudo snap install charmcraft --classic for the newer tool</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> snap install lxd <span class="at">--classic</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> lxd init <span class="at">--auto</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> charmcraft pack</span></code></pre></div>
+<p>Test the bundle:</p>
+<ul>
+<li>Install Zaza with <code>pip install zaza</code> (or
+<code>pip3 install zaza</code>). Create and activatte a venv if
+necessary.</li>
+<li>Have Juju Ready: Bootstrap a controller and create a model (e.g.,
+<code>juju add-model test</code>).</li>
+<li>Run the Bundle: <code>zaza run tests/bundles/noble.yaml</code></li>
+<li>This deploys the bundle (Cinder + SolidFire charm), sets up
+relations, and runs any defined tests. Since there’s only the bundle so
+far (no test files), it will only deploy and check that units are
+active.</li>
+</ul>
+<h1 id="where-to-get-help">Where to get help</h1>
+<p>Please use Github Issues.</p>
