@@ -19,7 +19,7 @@ To use:
 This will setup a configuration file with the stanza named for the unit
 (ex: cinder-solidfire-1) and the volume_backend_name set to 'cinder-solidfire'.
 The charm does NOT setup the volume-types for Cinder. You will need to do that
-once the Stack is up.  See the cinder configuration guide for details. 
+once the Stack is up. See the Cinder configuration guide for details. 
 
 Prerequisites
 =============
@@ -63,7 +63,7 @@ Test the bundle:
 
 - Install Zaza with `pip install zaza` (or `pip3 install zaza`). Create and activatte a venv if necessary.
 - Have Juju Ready: Bootstrap a controller and create a model (e.g., `juju add-model test`).
-- Run the Bundle: `zaza run tests/bundles/jammy.yaml`
+- Run the Bundle: `zaza run tests/bundles/noble.yaml`
 - This deploys the bundle (Cinder + SolidFire charm), sets up relations, and runs any defined tests. 
 Since there's only the bundle so far (no test files), it will only deploy and check that units are active.
 
