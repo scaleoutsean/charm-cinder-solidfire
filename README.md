@@ -28,6 +28,10 @@ Everything assumes you have the SolidFire cluster up and running already and
 that your controller nodes (containers) can reach the SolidFire MVIP and SVIP
 as needed.
 
+**Important:** The SolidFire API uses HTTPS (port 443 by default). Ensure a 
+valid TLS certificate is deployed on the SolidFire cluster, as Cinder requires 
+secure communication and will reject invalid certificates.
+
 Configuration
 =============
 
@@ -38,7 +42,7 @@ all others are optional.
 As an option to the above command (in overview) to set the variables, you can
 also pass a file into the deploy command with the configuration like this:
 
-    juju deploy  /home/$(whoami)/charms/jammy/cinder-solidfire --config=SF-Config.yaml
+    juju deploy  /home/$(whoami)/charms/noble/cinder-solidfire_amd64.charm --config=SF-Config.yaml
 
 Development
 ===========
@@ -60,7 +64,8 @@ Test the bundle:
 - Install Zaza with `pip install zaza` (or `pip3 install zaza`). Create and activatte a venv if necessary.
 - Have Juju Ready: Bootstrap a controller and create a model (e.g., `juju add-model test`).
 - Run the Bundle: `zaza run tests/bundles/jammy.yaml`
-- This deploys the bundle (Cinder + SolidFire charm), sets up relations, and runs any defined tests. Since there's only the bundle so far (no test files), it will only deploy and check that units are active.
+- This deploys the bundle (Cinder + SolidFire charm), sets up relations, and runs any defined tests. 
+Since there's only the bundle so far (no test files), it will only deploy and check that units are active.
 
 Where to get help
 ===================
