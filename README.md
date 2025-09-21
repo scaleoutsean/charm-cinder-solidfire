@@ -1,7 +1,7 @@
 SolidFire storage backend for Cinder
 ------------------------------------
 
-**NOTE:** this is a fork from https://github.com/solidfire/charm-cinder-solidfire which NetApp no longer maintains (and/or supports).
+**NOTE:** this is a fork from https://github.com/solidfire/charm-cinder-solidfire which NetApp no longer maintains (and/or supports). It's meant to serve as an ecouragement for users interested in using SolidFire with newer VMware alternatives.
 
 Overview
 ========
@@ -12,8 +12,8 @@ with multiple backends from other vendors in the same environment.
 To use:
 
     juju deploy cinder
-    juju deploy cinder-solidfire
-    juju config cinder-solidfire san_ip=172.27.1.50 san_login=admin san_password=solidfire
+    juju deploy cinder-solidfire_amd64.charm
+    juju config cinder-solidfire san_ip=192.168.1.34 san_login=admin san_password=b____n
     juju add-relation cinder-solidfire:storage-backend cinder:storage-backend
 
 This will setup a configuration file with the stanza named for the unit
@@ -40,7 +40,30 @@ also pass a file into the deploy command with the configuration like this:
 
     juju deploy  /home/$(whoami)/charms/jammy/cinder-solidfire --config=SF-Config.yaml
 
-Contact Information
+Development
+===========
+
+Environment used to build the bundle for AMD64 systems contained in the root of this repository:
+
+- LXD 5.21.4
+- Charm Tools 3.5.3
+
+```sh
+sudo apt install charm-tools  # or sudo snap install charmcraft --classic for the newer tool
+sudo snap install lxd --classic
+sudo lxd init --auto
+sudo charmcraft pack
+```
+
+Test the bundle:
+
+- Install Zaza with `pip install zaza` (or `pip3 install zaza`). Create and activatte a venv if necessary.
+- Have Juju Ready: Bootstrap a controller and create a model (e.g., `juju add-model test`).
+- Run the Bundle: `zaza run tests/bundles/jammy.yaml`
+- This deploys the bundle (Cinder + SolidFire charm), sets up relations, and runs any defined tests. Since there's only the bundle so far (no test files), it will only deploy and check that units are active.
+
+Where to get help
 ===================
 
-For issues and concerns please use Issues.
+Please use Github Issues.
+
