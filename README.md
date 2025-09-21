@@ -1,7 +1,7 @@
 SolidFire storage backend for Cinder
 ------------------------------------
 
-**NOTE:** this is a fork from https://github.com/solidfire/charm-cinder-solidfire which NetApp no longer maintains (and/or supports). It's meant to serve as an ecouragement for users interested in using SolidFire with newer VMware alternatives.
+**NOTE:** [this repository](https://github.com/solidfire/charm-cinder-solidfire) is a fork from https://github.com/solidfire/charm-cinder-solidfire which NetApp no longer maintains (and/or supports). It's meant to serve as an ecouragement for users interested in using SolidFire with newer VMware alternatives.
 
 Overview
 ========
