@@ -1,11 +1,13 @@
 SolidFire storage backend for Cinder
 ------------------------------------
 
+**NOTE:** this is a fork from https://github.com/solidfire/charm-cinder-solidfire which NetApp no longer maintains (and/or supports).
+
 Overview
 ========
 
-This charm configures Cinder to use SolidFire as a backend.  This charm works
-with multiple backends from other vendors including ceph. 
+This charm configures Cinder to use SolidFire as a backend. This charm works
+with multiple backends from other vendors in the same environment. 
 
 To use:
 
@@ -36,13 +38,9 @@ all others are optional.
 As an option to the above command (in overview) to set the variables, you can
 also pass a file into the deploy command with the configuration like this:
 
-    juju deploy  /home/ebalduf/charms/xenial/cinder-solidfire --config=SF-Config.yaml
+    juju deploy  /home/$(whoami)/charms/jammy/cinder-solidfire --config=SF-Config.yaml
 
 Contact Information
 ===================
 
-For issues and concerns please use the NetApp developer site and community forums.
-
-http://netapp.io/
-Ed Balduf <ed.balduf@solidfire.com>
-
+For issues and concerns please use Issues.
